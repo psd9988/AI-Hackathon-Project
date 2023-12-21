@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const SignUpPage = () => {
@@ -11,7 +13,7 @@ const SignUpPage = () => {
   });
 
   const containerStyle = {
-    marginTop: '8rem', // Adjust the value as needed
+    marginTop: '8rem',
   };
 
   const formStyle = {
@@ -30,14 +32,20 @@ const SignUpPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Validate the form data before making the API call if needed
+      // Validate form data before making the API call
+      if (formData.password !== formData.confirmPassword) {
+        toast.error('Passwords do not match');
+        return;
+      }
 
       // Send a POST request to the API
       const response = await axios.post('https://merd-api.merakilearn.org/hackathon20December/SIGNUP', {
@@ -49,15 +57,16 @@ const SignUpPage = () => {
       // Check the API response
       if (response.data.Error) {
         // Handle error case
-        alert(`Error: ${response.data.message}`);
+        console.error('API Error:', response.data.message);
       } else {
         // Handle successful registration
-        alert(`User registered successfully. ID: ${response.data.data.id}`);
+        toast.success('User registered successfully.');
         // Redirect or perform other actions as needed
       }
     } catch (error) {
       // Handle errors
       console.error('API Error:', error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -117,6 +126,7 @@ const SignUpPage = () => {
           Already have an account? <a href="login">Sign In</a>
         </p>
       </Form>
+      <ToastContainer />
     </Container>
   );
 };
