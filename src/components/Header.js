@@ -30,7 +30,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="mylearning">My Learning</Nav.Link>
+            <Nav.Link href="/mylearning">My Learning</Nav.Link>
             <Nav.Link href="/discuss">Discuss</Nav.Link>
             {/* Add more navigation links as needed */}
           </Nav>
@@ -50,7 +50,7 @@ const Header = () => {
       <Button
         variant="outline-light"
         onClick={isLoggedIn ? handleLogout : null}
-        href={isLoggedIn ? null : "login"}
+        href={isLoggedIn ? null : "/login"}
       >
         {isLoggedIn ? `Logout` : 'Login'}
       </Button>
