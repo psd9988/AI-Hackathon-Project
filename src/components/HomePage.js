@@ -1,11 +1,10 @@
-// HomePage.js
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import CourseList from './CourseList'; // Adjust the path accordingly
+import CourseList from './CourseList';
 
 const HomePage = () => {
   const containerStyle = {
-    marginTop: '8rem', // Adjust the value as needed
+    marginTop: '8rem',
   };
   const courses = CourseList();
 
@@ -18,7 +17,10 @@ const HomePage = () => {
               <Card.Img variant="top" src={course.imageUrl} />
               <Card.Body>
                 <Card.Title>{course.title}</Card.Title>
-                <Button variant="primary">Enroll</Button>
+                {/* Update the href attribute to include the course ID */}
+                <Button id={course.id} variant="primary" href={`/Course${course.id}Page1`}>
+                  Enroll
+                </Button>
               </Card.Body>
             </Card>
           </Col>
