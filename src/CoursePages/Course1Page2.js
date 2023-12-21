@@ -1,15 +1,36 @@
-import React from "react";
+import React ,{ useContext } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import firstImage from "../images/1/5.png";
 import secondImage from "../images/1/6.png";
 import thirdImage from "../images/1/7.png";
 import fourthImage from "../images/1/8.png";
+import axios from "axios";
+import { UserDataContext } from "../contexts/UserDataContext";
+
 
 const Course1Page2 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { loggedInUserData } = useContext(UserDataContext);
 
   const nextButton = () => {
+    const pathParts = location.pathname.split('/');
+      const courseId = pathParts[1];
+      const courseNumber = courseId.replace('course', '')
+      console.log(courseNumber[0]);
+
+      axios.post(`https://merd-api.merakilearn.org/hackathonCourses/UPDATE_PROGRESS/${courseNumber[0]}`, {
+        email: loggedInUserData.email,
+        exercise_id: 1,
+      }).then((response) => {
+        console.log(response);
+      }
+      ).catch((error) => {
+        console.log(error);
+      })
+
     navigate("/Course1Page3");
   };
 

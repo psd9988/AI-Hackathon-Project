@@ -43,6 +43,8 @@ import Course8Page2 from './CoursePages/Course8Page2';
 import Course8Page3 from './CoursePages/Course8Page3';
 import Course8Page4 from './CoursePages/Course8Page4';
 
+import AiPlanner from './components/AiPlanner';
+
 
 
 
@@ -92,6 +94,7 @@ function App() {
       <Route path="/course8page2" element={<Course8Page2/>} />
       <Route path="/course8page3" element={<Course8Page3/>} />
       <Route path="/course8page4" element={<Course8Page4/>} />
+      <Route path="/aiplanner" element={<AiPlanner/>} />
       </Routes>
     </div>
   );

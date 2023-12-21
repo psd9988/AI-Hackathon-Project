@@ -32,6 +32,7 @@ const Header = () => {
           <Nav className="mr-auto">
             <Nav.Link href="/mylearning">My Learning</Nav.Link>
             <Nav.Link href="/discuss">Discuss</Nav.Link>
+            <Nav.Link href="/aiplanner">AI Lesson Planner </Nav.Link>
             {/* Add more navigation links as needed */}
           </Nav>
         </Navbar.Collapse>

@@ -51,13 +51,28 @@ const HomePage = () => {
   };
 
   const handleStartCourse = (courseId) => {
-    const currentCourse = enrolledCourses.find(course => course.course_id === courseId);
-    console.log(parseInt(currentCourse.progress));
+    const progress = parseInt(isCourseEnrolled(courseId).progress);
 
-    if (parseInt(currentCourse.progress) > 0) {
-      setIsCourseStarted(true)
-      console.log(isCourseStarted)
-  };}
+    if (progress === 0) {
+      // If progress is 0, redirect to course page
+      // course1page1
+      navigate(`/course${courseId}page1`);
+    }
+    if (progress === 25) {
+      // If progress is 25, redirect to course page
+      navigate(`/course${courseId}page2`);
+    }
+    if (progress === 50) {
+      // If progress is 50, redirect to course page
+      navigate(`/course${courseId}page3`);
+    }
+    if (progress === 75) {
+      // If progress is 75, redirect to course page
+      navigate(`/course${courseId}page4`);
+    }
+  
+
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -107,7 +122,6 @@ const HomePage = () => {
       }
     }, [isLoggedIn, loggedInUserData.email]);
   
- 
   
     return (
       <Container style={containerStyle}>
@@ -135,6 +149,7 @@ const HomePage = () => {
                       id={`start-${course.id}`}
                       variant="info" // Set the variant for the "Start" button
                       className="ml-auto" // Add margin to separate the buttons
+                      onClick={() => handleStartCourse(course.id)}
                     >
                        {parseInt(isCourseEnrolled(course.id).progress) > 0 ? 'Resume' : 'Start'}
                     </Button>
