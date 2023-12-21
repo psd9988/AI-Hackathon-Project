@@ -28,12 +28,12 @@ const CourseList = () => {
     },
     {
       id: 6,
-      title: 'AI In Marketing: A CaseStudy',
+      title: 'Artificial Intelligence In Marketing: A CaseStudy',
       imageUrl: 'https://img-c.udemycdn.com/course/240x135/5106840_0075_3.jpg',
     },
     {
       id: 7,
-      title: 'AI for Book Publishing',
+      title: 'Artificial Intelligence for Book Publishing',
       imageUrl: 'https://img-c.udemycdn.com/course/240x135/4987788_be40_5.jpg',
     },
     {
