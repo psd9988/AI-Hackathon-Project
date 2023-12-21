@@ -4,9 +4,12 @@ import Header from './components/Header';
 import CourseList from './components/CourseList';
 import CourseDetail from './components/CourseDetail';
 import LoginPage from './components/LoginPage';
-import IfLoggedIn from './components/IfLoggedIn';
+// import IfLoggedIn from './components/IfLoggedIn';
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
+import Discuss from './components/Discuss';
+import QuestionDetail from './components/QuestionDetail';
+import {AskQuestionForum} from './components/AskQuestionForum';
 import Course1Page1 from './CoursePages/Course1Page1';
 import Course1Page2 from './CoursePages/Course1Page2';
 import Course1Page3 from './CoursePages/Course1Page3';
@@ -44,13 +47,16 @@ function App() {
   return (
     <div>
       <Header />
-      {/* <IfLoggedIn /> */}
+ 
       <Routes>
       <Route path="/courses" element={<CourseList/>} />
       <Route path="/course/:id" element={<CourseDetail/>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/signup" element={<SignUpPage/>} />
-      <Route path="/homepage" element={<HomePage/>} />
+      <Route path="/" element={<HomePage/>} />
+      <Route path="/discuss" element={<Discuss/>} />
+      <Route path="/questions/:id" element={<QuestionDetail />} />
+      {/* <Route path="/ask" element={<AskQuestionForum />} /> */}
       <Route path="/course1page1" element={<Course1Page1/>} />
       <Route path="/course1page2" element={<Course1Page2/>} />
       <Route path="/course1page3" element={<Course1Page3/>} />

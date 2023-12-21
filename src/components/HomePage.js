@@ -1,8 +1,16 @@
-import React from 'react';
+// HomePage.js
+import React, {useContext, useEffect} from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import CourseList from './CourseList';
+import { UserDataContext } from '../contexts/UserDataContext';
 
 const HomePage = () => {
+  const { loggedInUserData } = useContext(UserDataContext);
+
+  useEffect(()=>{
+    console.log(loggedInUserData);
+  },[])
+
   const containerStyle = {
     marginTop: '8rem',
   };

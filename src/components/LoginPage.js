@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../contexts/UserContext';
+import { UserDataContext } from '../contexts/UserDataContext';
+import { useNavigate } from 'react-router-dom';  
 
 const LoginPage = () => {
+  const { setIsLoggedIn } = useContext(UserContext);
+  const { setLoggedInUserData } = useContext(UserDataContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
   const containerStyle = {
     marginTop: '8rem', // Adjust the value as needed
   };
@@ -20,21 +32,57 @@ const LoginPage = () => {
     color: '#333',
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        'https://merd-api.merakilearn.org/hackathon20December/LOGIN',
+        {
+          email,
+          password,
+        }
+      );
+
+      const userData = response.data.data;
+      setIsLoggedIn(true);
+      setLoggedInUserData(userData);
+      
+      toast.success(response.data.message);
+      // Redirect to the homepage after successful login
+      navigate('/');
+
+    } catch (error) {
+      toast.error('Login failed. Please check your credentials.');
+      console.error('Login error:', error);
+    }
+  };
+
   return (
     <Container style={containerStyle}>
-      <Form style={formStyle}>
+      <Form style={formStyle} onSubmit={handleLogin}>
         <h2 className="text-center mb-4">Sign In</h2>
         <Form.Group controlId="formUsername">
           <Form.Label style={labelStyle}>Email</Form.Label>
-          <Form.Control type="text" placeholder="Enter your Email Id" />
+          <Form.Control
+            type="text"
+            placeholder="Enter your Email Id"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group controlId="formPassword">
           <Form.Label style={labelStyle}>Password</Form.Label>
-          <Form.Control type="password" placeholder="Enter your password" />
+          <Form.Control
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Form.Group>
 
-        <Button className='mt-3' variant="primary" type="submit" block>
+        <Button className="mt-3" variant="primary" type="submit" block>
           Login
         </Button>
 

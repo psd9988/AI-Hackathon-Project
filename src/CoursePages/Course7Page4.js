@@ -10,7 +10,7 @@ const Course7Page4 = () => {
   const navigate = useNavigate();
 
   const finishBtn = () => {
-    navigate("/homepage");
+    navigate("/");
   };
 
   const containerStyle = {
