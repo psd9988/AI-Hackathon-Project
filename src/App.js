@@ -7,6 +7,9 @@ import LoginPage from './components/LoginPage';
 import IfLoggedIn from './components/IfLoggedIn';
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
+import Discuss from './components/Discuss';
+import QuestionDetail from './components/QuestionDetail';
+import {AskQuestionForum} from './components/AskQuestionForum';
 
 
 
@@ -22,6 +25,9 @@ function App() {
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/signup" element={<SignUpPage/>} />
       <Route path="/homepage" element={<HomePage/>} />
+      <Route path="/discuss" element={<Discuss/>} />
+      <Route path="/questions/:id" element={<QuestionDetail />} />
+      {/* <Route path="/ask" element={<AskQuestionForum />} /> */}
       </Routes>
      
     </div>

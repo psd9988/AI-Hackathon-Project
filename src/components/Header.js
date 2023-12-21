@@ -9,7 +9,7 @@ const Header = () => {
     
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top" >
       <Container>
         <Navbar.Brand style={logoTextStyle} href="homepage">Hackathon LMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
@@ -17,6 +17,7 @@ const Header = () => {
           <Nav className="mr-auto">
            
             <Nav.Link href="mylearning">My Learning</Nav.Link>
+            <Nav.Link href="/discuss">Discuss</Nav.Link>
             {/* Add more navigation links as needed */}
           </Nav>
         </Navbar.Collapse>
