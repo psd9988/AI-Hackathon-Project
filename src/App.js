@@ -4,7 +4,7 @@ import Header from './components/Header';
 import CourseList from './components/CourseList';
 import CourseDetail from './components/CourseDetail';
 import LoginPage from './components/LoginPage';
-// import IfLoggedIn from './components/IfLoggedIn';
+// import IfLoggedIn from './components/IfLoggedIn'
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import Discuss from './components/Discuss';
