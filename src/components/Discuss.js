@@ -1,46 +1,70 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap"; // Import Form from react-bootstrap
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Container, Card, Button, Form } from "react-bootstrap";
+import axios from "axios";
+import {UserDataContext} from '../contexts/UserDataContext';
+import { UserContext } from "../contexts/UserContext";
 
 function Discuss() {
   const [questions, setQuestions] = useState([]);
-  const [isAsking, setIsAsking] = useState(false); // State to toggle the input field display
   const [newQuestion, setNewQuestion] = useState(""); // State to store the new question text
+
+  const navigate = useNavigate();
+  const { loggedInUserData } = useContext(UserDataContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   const margin = {
     marginTop: "100px",
   };
 
   useEffect(() => {
-    // Mock data for demonstration
-    const mockData = [
-      { id: 1, title: "Sample Question 1" },
-      { id: 2, title: "Sample Question 2" },
-      { id: 3, title: "Sample Question 3" },
-      { id: 4, title: "Sample Question 4" },
-    ];
-    setQuestions(mockData);
+    fetchQuestions(); // Fetch questions when the component mounts
   }, []);
 
-  const handleAskClick = () => {
-    setIsAsking(!isAsking); // Toggle the display of input field and button
+  useEffect(()=>{
+    
+  },[questions])
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get(
+        "https://merd-api.merakilearn.org/hackathonCourses/GET_ALL_QUESTIONS"
+      );
+     
+      setQuestions(response.data.data || []);
+    } catch (error) {
+      console.error(error);
+      // Handle error state or display a message to the user
+    }
   };
 
   const handleQuestionChange = (e) => {
     setNewQuestion(e.target.value); // Update the new question text
   };
 
-  const handlePostQuestion = () => {
-    // Logic to handle posting the question to the backend/API
-    // For demonstration, you can add the new question to the existing list
-    const updatedQuestions = [
-      ...questions,
-      { id: questions.length + 1, title: newQuestion },
-    ];
-    setQuestions(updatedQuestions);
-    setIsAsking(false); // Hide the input field and button after posting
-    setNewQuestion(""); // Clear the input field
+  const handlePostQuestion = async () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await axios.post(
+          'https://merd-api.merakilearn.org/hackathonCourses/ASK_QUESTIONS',
+          {
+            questions: newQuestion,
+            email: loggedInUserData.email,
+          }
+        );
+        
+        // After successful post, update the state with the new question
+        setQuestions([...questions, response.data.data.questions]); // Assuming the response.data contains the newly posted question object
+        setNewQuestion(""); // Clear the input field after posting
+      } catch (error) {
+        console.error(error);
+        // Handle error state or display a message to the user
+      }
+    }
   };
+  
 
   return (
     <Container style={margin}>
@@ -49,12 +73,6 @@ function Discuss() {
       </header>
 
       <div>
-        {!isAsking ? ( // Display "Ask a Question" button when not in ask mode
-          <Button variant="success" className="mb-3" onClick={handleAskClick}>
-            Ask a Question
-          </Button>
-        ) : (
-          // Display input field and "Post Question" button when in ask mode
           <div>
             <div>
               <Form.Control
@@ -73,32 +91,28 @@ function Discuss() {
                 >
                   Post Question
                 </Button>
-                <Button
-                  variant="danger"
-                  onClick={handleAskClick}
-                  className="mx-2"
-                >
-                  Cancel
-                </Button>
               </div>
             </div>
           </div>
-        )}
 
         <h2>Q&A Discussions</h2>
-        {questions.map((question) => (
-          <Link
-            key={question.id}
-            to={`/questions/${question.id}`}
-            className="text-decoration-none"
-          >
-            <Card className="mb-3 clickable-box">
-              <Card.Body>
-                <Card.Title>{question.title}</Card.Title>
-              </Card.Body>
-            </Card>
-          </Link>
-        ))}
+        {questions.length > 0 ? (
+          questions.map((question) => (
+            <Link
+              key={question.id}
+              to={`/questions/${question.id}`}
+              className="text-decoration-none"
+            >
+              <Card className="mb-3 clickable-box">
+                <Card.Body>
+                  <Card.Title>{question.questions}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
+          ))
+        ) : (
+          <p>No Questions Available</p>
+        )}
       </div>
     </Container>
   );

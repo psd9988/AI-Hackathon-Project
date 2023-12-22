@@ -90,7 +90,7 @@ const HomePage = () => {
           console.error("API Error:", error);
         });
     }
-  }, [isLoggedIn, loggedInUserData.email, enrolledCourses, isCourseStarted]);
+  }, [isLoggedIn, loggedInUserData, enrolledCourses, isCourseStarted]);
 
   const containerStyle = {
     marginTop: "8rem",
@@ -120,7 +120,7 @@ const HomePage = () => {
             console.error("API Error:", error);
           });
       }
-    }, [isLoggedIn, loggedInUserData.email]);
+    }, [isLoggedIn, loggedInUserData]);
   
   
     return (

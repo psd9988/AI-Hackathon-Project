@@ -8,7 +8,7 @@ import { UserDataContext } from '../contexts/UserDataContext';
 import { useNavigate } from 'react-router-dom';  
 
 const LoginPage = () => {
-  const { setIsLoggedIn } = useContext(UserContext);
+  const {isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const { setLoggedInUserData } = useContext(UserDataContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,6 +45,8 @@ const LoginPage = () => {
       );
 
       const userData = response.data.data;
+
+
       setIsLoggedIn(true);
       setLoggedInUserData(userData);
       

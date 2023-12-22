@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Link, NavLink} from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,8 +16,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+
     // Perform any additional cleanup or actions on logout if needed
-    setLoggedInUserData('No Logged In User');
+    setLoggedInUserData(null);
     setIsLoggedIn(false);
     toast.success('Logout successful!');
   };
@@ -24,15 +26,17 @@ const Header = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top" >
       <Container>
-        <Navbar.Brand style={logoTextStyle} href="/">
-          Hackathon LMS
+        <Navbar.Brand style={logoTextStyle}>
+        <Nav.Link as={NavLink} to="/">
+        Hackathon LMS
+      </Nav.Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/mylearning">My Learning</Nav.Link>
-            <Nav.Link href="/discuss">Discuss</Nav.Link>
-            <Nav.Link href="/aiplanner">AI Lesson Planner </Nav.Link>
+            <Nav.Link as={NavLink} to="/mylearning">My Learning</Nav.Link>
+            <Nav.Link as={NavLink} to="/discuss">Discuss</Nav.Link>
+            <Nav.Link as={NavLink} to="/aiplanner">AI Lesson Planner </Nav.Link>
             {/* Add more navigation links as needed */}
           </Nav>
         </Navbar.Collapse>
